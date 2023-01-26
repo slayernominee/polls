@@ -27,6 +27,19 @@ class Poll():
 def beautify(poll_tuple: tuple) -> Poll:
     return Poll(poll_tuple[0], poll_tuple[1], poll_tuple[2], poll_tuple[3], poll_tuple[4], poll_tuple[5], poll_tuple[6], poll_tuple[7], poll_tuple[8], poll_tuple[9], poll_tuple[10])   
 
+def jsonfy(poll: Poll) -> dict:
+    return {
+        "id": poll.id,
+        "creator": poll.creator,
+        "created": poll.created,
+        "protection": poll.protection,
+        "type": poll.typ,
+        "sheet": poll.sheet,
+        "link": poll.link,
+        "title": poll.title,
+        "description": poll.description
+    }
+
 def get_by_id(id: int) -> Poll:
     with sqlite3.connect(db) as conn:
         c = conn.cursor()
@@ -46,3 +59,15 @@ def get_by_link(link: str) -> Poll:
     if poll_tuple:
         poll = beautify(poll_tuple)
         return poll
+
+def list_polls() -> list:
+    with sqlite3.connect(db) as conn:
+        c = conn.cursor()
+        c.execute('SELECT * FROM polls')
+        poll_tuples = c.fetchall()
+    poll_list = []
+    for t in poll_tuples:
+        poll = beautify(t)
+        poll = jsonfy(poll)
+        poll_list.append(poll)
+    return poll_list

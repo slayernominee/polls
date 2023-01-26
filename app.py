@@ -20,6 +20,11 @@ def poll(link):
     poll = polls.get_by_link(link)
     return render_template('pages/poll.html', wdata=wdata, sheet=poll.sheet, title=poll.title, description=poll.description, id=poll.id)
 
+@app.route('/admin')
+def admin():
+    poll_list = polls.list_polls()
+    return render_template('pages/admin.html', wdata=wdata, poll_list=poll_list)
+
 @app.route('/poll/<link>', methods=['POST'])
 def poll_post(link):
     poll = polls.get_by_link(link)
