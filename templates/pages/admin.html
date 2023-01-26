@@ -6,7 +6,28 @@
 
 <body>
 
-    {{poll_list}}
+    <table>
+        <tr>
+            <td>ID</td>
+            <td>Title</td>
+            <td>Creator</td>
+            <td>Created</td>
+            <td>Type</td>
+            <td>Protection</td>
+            <td>Link</td>
+        </tr>
+    {% for poll in poll_list %}
+        <tr>
+            <td>{{poll['id']}}</td>
+            <td>{{poll['title']}}</td>
+            <td>{{poll['creator']}}</td>
+            <td>{{poll['created']}}</td>
+            <td>{{poll['type']}}</td>
+            <td>{{poll['protection']}}</td>
+            <td>{{poll['link']}}</td>
+        </tr>
+    {% endfor %}
+    </table>
 
 </body>
 
