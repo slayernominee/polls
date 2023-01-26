@@ -1,3 +1,13 @@
 <style>
     {% include 'css/default.css' %}
 </style>
+
+<!-- Dark Reader Auto Darkmode -->
+<script src="{{ url_for('static', filename='node_modules/darkreader/darkreader.js')}}"></script>
+<script>
+    DarkReader.auto({
+        brightness: 100,
+        contrast: 90,
+        sepia: 0
+    });
+</script>
