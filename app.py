@@ -1,7 +1,8 @@
 from flask import Flask, redirect, abort, session, request, render_template
 from os import urandom
-from controler import polls
+from controler import polls, accounts
 from json import load as jload, dump as jdump
+from hashlib import sha3_512
 
 app = Flask(__name__)
 app.secret_key = str(urandom(4096))
@@ -22,8 +23,33 @@ def poll(link):
 
 @app.route('/admin')
 def admin():
-    poll_list = polls.list_polls()
-    return render_template('pages/admin.html', wdata=wdata, poll_list=poll_list)
+    if 'permissions' in session and 'admin' in session['permissions'] and session['permissions']['admin']:
+        poll_list = polls.list_polls()
+        return render_template('pages/admin.html', wdata=wdata, poll_list=poll_list)
+    else:
+        return render_template('pages/admin_login.html', wdata=wdata)
+
+@app.route('/admin', methods=['POST'])
+def admin_login():
+    # TODO: make it to an general login and not only for admins
+    # TODO: dont give every valid combo admin rights
+    
+    form = request.form
+    username = form['username']
+    password = form['password']
+
+    password_hash = sha3_512(password.encode('utf-8')).hexdigest()
+
+    rs = accounts.check(username, password_hash)
+
+    if rs['valid']:
+        if 'permissions' not in session:
+            session['permissions'] = {}
+        session['permissions']['admin'] = True
+        return redirect('/admin')
+    else:
+        return abort(403)
+        
 
 @app.route('/poll/<link>', methods=['POST'])
 def poll_post(link):

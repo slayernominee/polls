@@ -7,6 +7,12 @@ flask polls app with many options and optional blocking for multiple votes from 
 `source env/bin/activate`
 `pip install -r requirements.txt`
 
+#### run the code
+Recommended: run it via nginx somehow idk
+Debugging: run the app.py file directly
+
+#### configuration
+sqlite3 into the data/accounts.db and remove the raphiel user
 
 ## Credits
 #### Radio Buttons

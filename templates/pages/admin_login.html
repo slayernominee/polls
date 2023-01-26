@@ -1,0 +1,15 @@
+{% include 'resources/header.html' %}
+
+<title>Admin Login</title>
+
+<h1>Admin Login</h1>
+
+<form method="POST">
+    <input type="text" autocomplete="username" required name="username" autofocus placeholder="username">
+    <input type="password" autocomplete="current-password" required name="password" placeholder="password">
+    <div class="center">
+        <input type="submit">
+    </div>
+</form>
+
+{% include 'resources/footer.html' %}

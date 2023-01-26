@@ -24,7 +24,7 @@
             <td>{{poll['created']}}</td>
             <td>{{poll['type']}}</td>
             <td>{{poll['protection']}}</td>
-            <td>{{poll['link']}}</td>
+            <td><a href="/poll/{{poll['link']}}">{{poll['link']}}</a></td>
         </tr>
     {% endfor %}
     </table>
