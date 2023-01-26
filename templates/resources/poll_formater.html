@@ -1,5 +1,5 @@
 {# format the sheet file in a dialog #}
-<form method="POST">
+<form method="POST" class="poll_form">
     <input name="id" type="hidden" value="{{id}}">
     {% for part in sheet.split('----') %}
     {% set part_radio_id = 'radio_' + part.split('<br>')[1].replace(' ', '_') %}
@@ -11,9 +11,10 @@
     <label class="container">{{line[4:]}}
         <input type="radio" checked="checked" value="{{line[4:]}}" name="{{part_radio_id}}">
         <span class="checkmark"></span>
-    </label><br>
+    </label>
     {% elif line.startswith('[t]') %}
-    <input type="text" name="{{text_radio_id}}" placeholder="{{line[4:]}}"> {{line[4:]}}<br>
+    <label for="{{text_radio_id}}">{{line[4:]}}</label>
+    <input type="text" name="{{text_radio_id}}" id="{{text_radio_id}}" placeholder="{{line[4:]}}"><br>
     {% else %}
     {{line}}<br>
     {% endif %}
