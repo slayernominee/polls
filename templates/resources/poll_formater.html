@@ -1,0 +1,13 @@
+{# format the sheet file in a dialog #}
+
+{% for line in sheet %}
+    {% if line == '----' %}
+        {{radio_id}}
+    {% elif line.startswith('#') %}
+        <h3>{{line}}</h3><br>
+    {% elif line.startswith('[r]') %}
+        <input type="radio"> {{line}}<br>
+    {% else %}
+        {{line}}<br>
+    {% endif %}
+{% endfor %}
