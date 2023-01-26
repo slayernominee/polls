@@ -63,10 +63,6 @@
     background: white;
 }
 
-body {
-    padding: 20px 100px;
-}
-
 input[type=text] {
     width: 100%;
     padding: 12px 20px;

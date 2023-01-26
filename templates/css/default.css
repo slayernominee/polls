@@ -5,6 +5,39 @@ h1 {
     text-align: center;
 }
 
+
+/* scrollbar */
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888; 
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+  }
+
+@media only screen and (min-width: 800px) {
+    body {
+        padding: 20px 100px;
+    }
+}
+@media only screen and (min-width: 1200px) {
+    body {
+        padding: 20px 10%;
+    }
+}
+
 button, input[type=submit] {
     background-color: #008CBA;
     border: none;
