@@ -19,7 +19,7 @@ class Poll():
         self.description = description
         
         with open(f'data/sheets/{sheet}', 'r') as f:
-            self.sheet = f.read().split('\n')
+            self.sheet = f.read().replace('\n', '<br>')
     
     def __str__(self) -> str:
         return f'<poll object {self.id}>'

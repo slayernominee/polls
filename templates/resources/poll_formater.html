@@ -1,13 +1,22 @@
 {# format the sheet file in a dialog #}
+<form method="POST">
+<input name="id" type="hidden" value="{{id}}">
+{% for part in sheet.split('----') %}
+    {% set part_radio_id = 'radio_' + part.split('<br>')[1].replace(' ', '_') %}
+    {% set text_radio_id = 'text_' + part.split('<br>')[1].replace(' ', '_') %}
+    {% for line in part.split('<br>') %}
+        {% if line.startswith('#') %}
+            <h3>{{line}}</h3>
+        {% elif line.startswith('[r]') %}
+            <input type="radio" name="{{part_radio_id}}" value="{{line[4:]}}"> {{line[4:]}}<br>
+        {% elif line.startswith('[t]') %}
+            <input type="text" name="{{text_radio_id}}" placeholder="{{line[4:]}}"> {{line[4:]}}<br>
+        {% else %}
+            {{line}}<br>
+        {% endif %}
+    {% endfor %}
 
-{% for line in sheet %}
-    {% if line == '----' %}
-        {{radio_id}}
-    {% elif line.startswith('#') %}
-        <h3>{{line}}</h3><br>
-    {% elif line.startswith('[r]') %}
-        <input type="radio"> {{line}}<br>
-    {% else %}
-        {{line}}<br>
-    {% endif %}
+    <hr>
 {% endfor %}
+<input type="submit">
+</form>

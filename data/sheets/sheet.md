@@ -16,5 +16,10 @@ text
 # question 4
 [ra,1-10] range 1-10
 ----
+# another radio button
+this buttons are independed on th first ones
+[r] radio 1
+[r] radio 2
+----
 
 some conclusion 
