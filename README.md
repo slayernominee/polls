@@ -9,6 +9,8 @@ flask polls app with many options and optional blocking for multiple votes from 
 
 #### run the code
 Recommended: run it via nginx somehow idk
+i will descripe it soon or make a install script or sth
+
 Debugging: run the app.py file directly
 
 #### configuration
