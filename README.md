@@ -16,6 +16,10 @@ Debugging: run the app.py file directly
 #### configuration
 sqlite3 into the data/accounts.db and remove the raphiel user
 
+## Repositorys
+this repository is hosted on github and codeberg 
+on every push it will use both remotes
+
 ## Credits
 #### Radio Buttons
 <a href="https://www.w3schools.com/howto/howto_css_custom_checkbox.asp">W3Schools</a>
