@@ -30,13 +30,10 @@ def admin():
         poll_list = polls.list_polls()
         return render_template('pages/admin.html', wdata=wdata, poll_list=poll_list)
     else:
-        return render_template('pages/admin_login.html', wdata=wdata)
+        return render_template('pages/login.html', wdata=wdata)
 
-@app.route('/admin', methods=['POST'])
-def admin_login():
-    # TODO: make it to an general login and not only for admins
-    # TODO: dont give every valid combo admin rights
-    
+@app.route('/login', methods=['POST'])
+def admin_login():    
     form = request.form
     username = form['username']
     password = form['password']
@@ -48,7 +45,7 @@ def admin_login():
     if rs['valid']:
         if 'permissions' not in session:
             session['permissions'] = {}
-        session['permissions']['admin'] = True
+        session['permissions'] = rs['permissions']
         return redirect('/admin')
     else:
         return abort(403)
