@@ -62,3 +62,12 @@
     border-radius: 50%;
     background: white;
 }
+
+.result_bar {
+    width: 100%;
+    display: flex;
+}
+
+.result_bar_entry {
+    height: 30px;
+}

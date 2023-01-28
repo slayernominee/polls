@@ -1,3 +1,6 @@
+{% include 'resources/header.html' %}
+
+{# if there was a block because already voted #}
 {% if already_voted %}
 already voted!!!
 you cant vote again !
@@ -5,6 +8,58 @@ you cant vote again !
 <br>
 {% endif %}
 
-{{votes}}
+<style>
+    {% include 'css/polls.css' %}
+</style>
+
+<title>Poll Result - {{title}}</title>
+
+<h1>Result - {{title}}</h1>
+<br>
+
+{# format the votes #}
+{% for question in votes %}
+<div>
+    <h2 style="text-align: center">{{question.replace('_', ' ')}}</h2>
+    Total: <e id="total_{{question}}">0</e> Votes
+
+    <div id="bar_{{question}}" class="result_bar">
+    </div>
+
+    {% for answer in votes[question] %}
+        {{answer}}: {{votes[question][answer]}}
+        <script>
+            
+            current = parseInt(document.getElementById('total_{{question.replace(' ', '_')}}').innerHTML);
+            current += {{votes[question][answer]}};
+            document.getElementById('total_{{question.replace(' ', '_')}}').innerHTML = current;
+        </script>
+    {% endfor %}
+    <script>
+        color = 1;
+    </script>
+    {% for answer in votes[question] %}
+        <script>
+            answer_percentage = {{votes[question][answer]}} / current * 100;
+            if (color % 5  === 0) {
+                gcolor = "green";
+            } else if (color % 5 === 1) {
+                gcolor = "blue";
+            } else if (color % 5 === 2) {
+                gcolor = "pink";
+            } else if (color % 5 === 3) {
+                gcolor = "yellow";
+            } else {
+                gcolor = "red";
+            }
+            document.getElementById('bar_{{question}}').innerHTML += '<div id="answer_xx" class="result_bar_entry ' + gcolor + ' tooltip" style="width: ' + answer_percentage + '%"><span class="tooltiptext">{{answer}}</span></div>'
+            color += 1;
+        </script>
+    {% endfor %}
+
+    <br>
+</div>
+<hr>
+{% endfor %}
 
 {% include 'resources/footer.html' %}

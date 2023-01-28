@@ -75,7 +75,7 @@ def poll_post(link):
             session['votes'][str(link)] = True
         # check if vote is allowed
         if not session['votes'][str(link)]:
-            return render_template('pages/poll_result.html', votes=votes, wdata=wdata, already_voted=True)
+            return render_template('pages/poll_result.html', votes=votes, wdata=wdata, already_voted=True, title=poll.title, description=poll.description)
         # write the cookie after vote
         session['votes'][str(link)] = False
 
@@ -99,6 +99,8 @@ def poll_post(link):
         value = form[key]
         if key.startswith('text_'):
             question = key.split('text_')[1]
+            if value == '':
+                continue
         elif key.startswith('radio_'):
             question = key.split('radio_')[1]
         elif key == 'id':
@@ -115,7 +117,16 @@ def poll_post(link):
     
     with open(f'data/votes/{poll.id}.json', 'w') as f:
         jdump(votes, f, indent=2)
-    return render_template('pages/poll_result.html', wdata=wdata, votes=votes)
+    return render_template('pages/poll_result.html', wdata=wdata, votes=votes, title=poll.title, description=poll.description)
+
+@app.route('/poll/result/<link>')
+def poll_result(link):
+    poll = polls.get_by_link(link)
+
+    with open(f'data/votes/{poll.id}.json', 'r') as f:
+        votes = jload(f)
+    
+    return render_template('pages/poll_result.html', wdata=wdata, votes=votes, title=poll.title, description=poll.description)
 
 if __name__ == '__main__': 
     # debug run
