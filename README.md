@@ -1,6 +1,13 @@
 # polls
 flask polls app with many options and optional blocking for multiple votes from one host
 
+## Images
+<img src=".github/assets/1.png">
+<img src=".github/assets/2.png">
+<img src=".github/assets/3.png">
+<img src=".github/assets/4.png">
+<img src=".github/assets/5.png">
+
 ## Installation
 #### create a virtual env 
 `python3 -m venv env`
