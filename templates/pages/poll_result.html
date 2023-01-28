@@ -27,7 +27,6 @@ you cant vote again !
     </div>
 
     {% for answer in votes[question] %}
-        {{answer}}: {{votes[question][answer]}}
         <script>
             
             current = parseInt(document.getElementById('total_{{question.replace(' ', '_')}}').innerHTML);
@@ -36,7 +35,7 @@ you cant vote again !
         </script>
     {% endfor %}
     <script>
-        color = 1;
+        color = Math.floor(Math.random() * 10);
     </script>
     {% for answer in votes[question] %}
         <script>
@@ -52,7 +51,7 @@ you cant vote again !
             } else {
                 gcolor = "red";
             }
-            document.getElementById('bar_{{question}}').innerHTML += '<div id="answer_xx" class="result_bar_entry ' + gcolor + ' tooltip" style="width: ' + answer_percentage + '%"><span class="tooltiptext">{{answer}}</span></div>'
+            document.getElementById('bar_{{question}}').innerHTML += '<div id="answer_xx" class="result_bar_entry ' + gcolor + ' tooltip" style="width: ' + answer_percentage + '%"><span class="tooltiptext">{{answer}}: {{votes[question][answer]}} votes</span></div>'
             color += 1;
         </script>
     {% endfor %}
