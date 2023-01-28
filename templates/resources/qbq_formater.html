@@ -27,6 +27,8 @@
                 {% elif line.startswith('[t]') %}
                 <label for="{{text_radio_id}}">{{line[4:]}}</label>
                 <input type="text" name="{{text_radio_id}}" id="{{text_radio_id}}" placeholder="{{line[4:]}}"><br>
+                {% elif line.startswith('!img') %}
+                <img src="{{line.split('!img ')[1]}}" alt="an image"><br>
                 {% else %}
                 {{line}}<br>
                 {% endif %}
