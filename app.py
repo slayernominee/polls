@@ -1,5 +1,5 @@
 from flask import Flask, redirect, abort, session, request, render_template
-from os import urandom
+from os import urandom, path
 from controler import polls, accounts
 from json import load as jload, dump as jdump
 from hashlib import sha3_512
@@ -19,7 +19,10 @@ def home():
 @app.route('/poll/<link>', methods=['GET'])
 def poll(link):
     poll = polls.get_by_link(link)
-    return render_template('pages/poll.html', wdata=wdata, sheet=poll.sheet, title=poll.title, description=poll.description, id=poll.id)
+    if poll.typ == 1:
+        return render_template('pages/qbq.html', wdata=wdata, sheet=poll.sheet, title=poll.title, description=poll.description, id=poll.id)
+    else:
+        return render_template('pages/poll.html', wdata=wdata, sheet=poll.sheet, title=poll.title, description=poll.description, id=poll.id)
 
 @app.route('/admin')
 def admin():
@@ -55,6 +58,9 @@ def admin_login():
 def poll_post(link):
     poll = polls.get_by_link(link)
     
+    if not path.isfile(f'data/votes/{poll.id}.json'):
+        with open(f'data/votes/{poll.id}.json', 'w') as f:
+            f.write('{}')
     with open(f'data/votes/{poll.id}.json', 'r') as f:
         votes = jload(f)
 

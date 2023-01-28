@@ -1,0 +1,33 @@
+{% include 'resources/header.html' %}
+
+<style>
+    {% include 'css/polls.css' %}
+    {% include 'css/qbq.css'%}
+</style>
+
+<title>Poll - {{title}}</title>
+
+<body>
+
+<div class="tide">
+<h1>{{title}}</h1>
+<description>{{description}}</description>
+</div>
+
+<br><br>
+
+{% include 'resources/qbq_formater.html' %}
+
+<div id="page_buttons">
+<button id="previous_page_button" style="display: none;">< previous</button>
+<button id="next_page_button">next ></button>
+<button id="submit_button">submit</button>
+</div>
+
+<script>
+    {% include 'js/qbq.js' %}
+</script>
+
+</body>
+
+{% include 'resources/footer.html' %}

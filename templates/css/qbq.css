@@ -1,0 +1,28 @@
+.page {
+    display: none;
+}
+#page_buttons {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    position: absolute;
+    bottom: 50;
+    text-align: center;
+    width: 100vw;
+    left: 0;
+}
+#page_buttons button {
+    min-width: 10vw;
+}
+#submit_button {
+    display: none;
+}
+.question {
+    margin-bottom: 4%;
+}
+.answer {
+    margin-top: 4%;
+}
+.tide {
+    height: 8%;
+}
