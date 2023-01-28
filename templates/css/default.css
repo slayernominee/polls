@@ -5,7 +5,6 @@ h1 {
   text-align: center;
 }
 
-
 /* scrollbar */
 /* width */
 ::-webkit-scrollbar {
@@ -69,6 +68,9 @@ tr:nth-child(even) {
 }
 
 input[type=text], input[type=password] {
+  {% if wdata['rainbow_bg'] %}
+  background-color: rgba(50,50,50,0.1);
+  {% endif %}
   width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
@@ -142,11 +144,17 @@ input[type=text]:focus, input[type=password]:focus {
   visibility: visible;
 }
 
+{% if wdata['rainbow_bg'] %}
+html {
+  background: linear-gradient(-45deg, #29b4e6, #2cdfb5);
+  color: black;
+}
+{% endif %}
+
 .ccbg {
 	background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
 	background-size: 400% 400%;
 	animation: gradient 15s ease infinite;
-	height: 100vh;
 }
 
 @keyframes gradient {
@@ -160,3 +168,32 @@ input[type=text]:focus, input[type=password]:focus {
 		background-position: 0% 50%;
 	}
 }
+
+{% if wdata['rainbow_bg'] %}
+/* dark mode */
+@media (prefers-color-scheme: dark) {
+  html {
+    background: linear-gradient(-45deg, rgb(19, 79, 61), rgb(36, 42, 81));
+    color: white;
+}
+  .red {
+    background-color: rgb(196, 38, 17);
+  }
+  
+  .green {
+    background-color: rgb(25, 178, 25);
+  }
+  
+  .blue {
+    background-color: #0c7fa5;
+  }
+  
+  .pink {
+    background-color: rgb(202, 34, 90);
+  }
+  
+  .yellow {
+    background-color: rgb(208, 208, 3);
+  }
+}
+{% endif %}

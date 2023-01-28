@@ -32,5 +32,8 @@ Other Stuff: Just open an Issue on Codeberg and tell me how you want to contribu
 #### Text Buttons
 <a href="https://www.w3schools.com/css/css_form.asp">W3Schools</a>
 
+#### Background Style (inspired)
+<a href="https://codepen.io/P1N2O/pen/pyBNzX">Manuel Pinto</a>
+
 #### DarkMode
 <a href="https://github.com/darkreader/darkreader">DarkReader</a>

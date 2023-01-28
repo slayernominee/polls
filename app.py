@@ -8,7 +8,8 @@ app = Flask(__name__)
 app.secret_key = str(urandom(4096))
 
 wdata = {
-    "footer": False
+    "footer": False,
+    "rainbow_bg": False
 }
 
 @app.route('/', methods=['GET', 'POST'])
