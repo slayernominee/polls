@@ -16,9 +16,10 @@ Debugging: run the app.py file directly
 #### configuration
 sqlite3 into the data/accounts.db and remove the raphiel user
 
-## Repositorys
-this repository is hosted on github and codeberg 
-on every push it will use both remotes
+## Contributing
+Issues: <a href="https://codeberg.org/slayernominee/polls/issues">Open an Issue on Codeberg</a><br>
+Code Contributions: <a href="https://codeberg.org/slayernominee/polls">Make a Pull Reqeust on Codeberg</a><br>
+Other Stuff: Just open an Issue on Codeberg and tell me how you want to contribute 
 
 ## Credits
 #### Radio Buttons
