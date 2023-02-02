@@ -12,15 +12,17 @@ working currently on making everything for the json file mode
 <img src=".github/assets/4.png">
 
 ## Installation
-#### create a virtual env 
-`python3 -m venv env`
-`source env/bin/activate`
-`pip install -r requirements.txt`
+#### Nginx Deployment
+move the folder to /opt/survey
+configure (user) polls.service and place it in the /ect/systemd/system/ files
+with matching user 
 
-#### run the code
-Recommended: run it via nginx somehow idk
-i will descripe it soon or make a install script or sth
+nginx install + site config for running the socket
+look it up in the internet
 
+certbot for nginx
+
+#### Debug Run
 Debugging: run the app.py file directly
 
 #### configuration
