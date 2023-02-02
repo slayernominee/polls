@@ -103,6 +103,8 @@ def poll_post(link):
             question = key.split('radio_')[1]
         elif key == 'id':
             continue
+        elif key.startswith('select_'):
+            question = key.split('select_')[1]
         else:
             return 'an error occured by an not known value type ... sry please report this and what you have done'
             break

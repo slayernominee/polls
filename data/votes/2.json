@@ -1,1 +1,10 @@
-{}
+{
+  "<o>": {
+    "option_1": 3
+  },
+  "#_Select_Box": {
+    "option_1": 1,
+    "_option_3": 2,
+    "option_2": 1
+  }
+}

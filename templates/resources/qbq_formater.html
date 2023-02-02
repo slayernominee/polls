@@ -11,6 +11,7 @@
         <div class="question">
             {% set part_radio_id = 'radio_' + part.split('<br>')[1].replace(' ', '_') %}
             {% set text_radio_id = 'text_' + part.split('<br>')[1].replace(' ', '_') %}
+            {% set select_id = 'select_' + part.split('<br>')[1].replace(' ', '_') %}
             {% for line in part.split('<br>') %}
             {% if line.startswith('#') %}
             <h3>{{line}}</h3>
@@ -19,6 +20,14 @@
                 <input type="radio" checked="checked" value="{{line[4:]}}" name="{{part_radio_id}}">
                 <span class="checkmark"></span>
             </label>
+            {% elif line.startswith('[s,') %}
+            
+            <label for="{{select_id}}">{{line.split(']')[1]}}</label>
+            <select name="{{select_id}}" id="{{select_id}}">
+                {% for tag in line.split('[s,{')[1].split('}')[0].split(',') %}
+                    <option value="{{tag.replace(' ', '_')}}">{{tag}}</option>
+                {% endfor %}
+            </select>
             {% elif line == '<o>' %}
                 {# close the question tag and open the answer tag #}
             </div>
