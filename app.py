@@ -70,6 +70,8 @@ def poll_post(link):
             session['votes'][str(link)] = True
         # check if vote is allowed
         if not session['votes'][str(link)]:
+            if poll.result_hidden and not ('permissions' in session and 'admin' in session['permissions'] and session['permissions']['admin']):
+                return 'disabled to see the results currently, but you cant vote again because double voting is disabled'
             return render_template('pages/poll_result.html', votes=votes, wdata=wdata, already_voted=True, title=poll.title, description=poll.description)
         # write the cookie after vote
         session['votes'][str(link)] = False
@@ -106,6 +108,8 @@ def poll_post(link):
 @app.route('/poll/result/<link>')
 def poll_result(link):
     poll = polls.get_by_link(link)
+    if poll.result_hidden and not ('permissions' in session and 'admin' in session['permissions'] and session['permissions']['admin']):
+        return 'disabled to see the results currently but thx for voting'
 
     with open(f'data/surveys/{poll.id}.json', 'r') as f:
         votes = jload(f)

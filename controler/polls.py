@@ -19,7 +19,7 @@ class Poll():
         self.title = title
         self.description = description
         self.password = password
-        self.result_hidden = result_hidden
+        self.result_hidden = bool(result_hidden)
         self.limited_runs = limited_runs
         self.used_runs = used_runs
 
