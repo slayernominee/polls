@@ -4,7 +4,7 @@ import json
 db = 'data/polls.db'
 
 class Poll():
-    def __init__(self, id: int, creator: int, created: int, cookie_prot: bool, user_agent_prot: bool, ip_prot: bool, typ: int, sheet: str, link: str, title: str, description: str = '') -> None:
+    def __init__(self, id: int, creator: int, created: int, cookie_prot: bool, user_agent_prot: bool, ip_prot: bool, typ: int, sheet: str, link: str, title: str, description: str = '', password: str = "", result_hidden: bool = False, limited_runs: int = 0, used_runs: int = 0) -> None:
         self.id = id
         self.creator = creator
         self.created = created
@@ -18,6 +18,10 @@ class Poll():
         self.link = link
         self.title = title
         self.description = description
+        self.password = password
+        self.result_hidden = result_hidden
+        self.limited_runs = limited_runs
+        self.used_runs = used_runs
 
 
         with open(f'data/surveys/{id}.json', 'r') as f:
@@ -28,7 +32,7 @@ class Poll():
         return f'<poll object {self.id}>'
 
 def beautify(poll_tuple: tuple) -> Poll:
-    return Poll(poll_tuple[0], poll_tuple[1], poll_tuple[2], poll_tuple[3], poll_tuple[4], poll_tuple[5], poll_tuple[6], poll_tuple[7], poll_tuple[8], poll_tuple[9], poll_tuple[10])   
+    return Poll(poll_tuple[0], poll_tuple[1], poll_tuple[2], poll_tuple[3], poll_tuple[4], poll_tuple[5], poll_tuple[6], poll_tuple[7], poll_tuple[8], poll_tuple[9], poll_tuple[10], poll_tuple[11], poll_tuple[12], poll_tuple[13], poll_tuple[14])   
 
 def jsonfy(poll: Poll) -> dict:
     return {
@@ -40,7 +44,11 @@ def jsonfy(poll: Poll) -> dict:
         "sheet": poll.sheet,
         "link": poll.link,
         "title": poll.title,
-        "description": poll.description
+        "description": poll.description,
+        "password": poll.password,
+        "result_hidden": poll.result_hidden,
+        "limited_runs": poll.limited_runs,
+        "used_runs": poll.used_runs
     }
 
 def get_by_id(id: int) -> Poll:
