@@ -1,8 +1,17 @@
 
-# Select Box
+# Lieblingslehrer
+wählt bitte euren lieblingslehrer
 <o>
-here im going to make a select box
 
-[s,{option 1,option 2,option 3}] please select an option
+[s,{Meier,Müller,Schneider,Haas,Fuchs,Bär}] 1. Wahl
+
+[s,{Meier,Müller,Schneider,Haas,Fuchs,Bär}] 2. Wahl
+
+[s,{Meier,Müller,Schneider,Haas,Fuchs,Bär}] 3. Wahl
+
+[s,{Meier,Müller,Schneider,Haas,Fuchs,Bär}] 4. Wahl
 ----
-# test
+# Lieblingsfach
+Wählt bitte ueer Libelingsfach
+<o>
+[s,{Mathe,Deutsch,Informatik,BK,Sport,Freistunde}] Mein Lieblingsfach war 

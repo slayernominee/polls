@@ -20,7 +20,7 @@ you cant vote again !
 {# format the votes #}
 {% for question in votes %}
 <div>
-    <h2 style="text-align: center">{{question.replace('_', ' ')}}</h2>
+    <h2 style="text-align: center">{{question.replace('_', ' ')[2:]}}</h2>
     Total: <e id="total_{{question}}">0</e> Votes
 
     <div id="bar_{{question}}" class="result_bar">

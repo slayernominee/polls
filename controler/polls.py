@@ -1,4 +1,5 @@
 import sqlite3
+import json
 
 db = 'data/polls.db'
 
@@ -17,9 +18,15 @@ class Poll():
         self.link = link
         self.title = title
         self.description = description
-        
-        with open(f'data/sheets/{sheet}', 'r') as f:
-            self.sheet = f.read().replace('\n', '<br>')
+
+        if sheet.endswith('.md'): 
+            with open(f'data/sheets/{sheet}', 'r') as f:
+                self.sheet = f.read().replace('\n', '<br>')
+                self.json = False
+        elif sheet.endswith('.json'):
+            with open(f'data/surveys/{sheet}', 'r') as f:
+                self.sheet = json.load(f)
+                self.json = True
     
     def __str__(self) -> str:
         return f'<poll object {self.id}>'

@@ -1,10 +1,13 @@
 {
-  "<o>": {
-    "option_1": 3
+  "#_Lieblingslehrer": {
+    "Haas": 10,
+    "Meier": 7,
+    "Schneider": 2,
+    "M\u00fcller": 1
   },
-  "#_Select_Box": {
-    "option_1": 1,
-    "_option_3": 2,
-    "option_2": 1
+  "#_Lieblingsfach": {
+    "Freistunde": 1,
+    "Informatik": 1,
+    "Mathe": 13
   }
 }

@@ -1,0 +1,10 @@
+{
+    "Lieblingslehrer": {
+        "description": "wählt euren Lieblingslehrer",
+        "type": "select",
+        "options": {
+            "Haas": 0,
+            "Schneider": 0
+        }
+    }
+}

@@ -14,7 +14,7 @@
             {% set select_id = 'select_' + part.split('<br>')[1].replace(' ', '_') %}
             {% for line in part.split('<br>') %}
             {% if line.startswith('#') %}
-            <h3>{{line}}</h3>
+            <h3>{{line[2:]}}</h3>
             {% elif line.startswith('[r]') %}
             <label class="container">{{line[4:]}}
                 <input type="radio" checked="checked" value="{{line[4:]}}" name="{{part_radio_id}}">
