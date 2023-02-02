@@ -14,13 +14,13 @@ class Poll():
             "ip": ip_prot
         }
         self.typ = typ
-        self.sheet_name = sheet
+        self.sheet_name = sheet # no longer used
         self.link = link
         self.title = title
         self.description = description
 
 
-        with open(f'data/surveys/{sheet}', 'r') as f:
+        with open(f'data/surveys/{id}.json', 'r') as f:
             self.sheet = json.load(f)
             self.json = True
     

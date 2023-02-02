@@ -1,0 +1,17 @@
+{
+  "questions": [
+    {
+      "name": "test",
+      "elements": [
+        {
+          "type": "radio",
+          "options": {
+            "yes": 1,
+            "no": 0,
+            "?": 1
+          }
+        }
+      ]
+    }
+  ]
+}
