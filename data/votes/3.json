@@ -1,11 +1,11 @@
 {
   "#_how_are_you_feeling?": {
     "ok ": 1,
-    "shit": 1
+    "shit": 2
   },
   "#_how_did_you_sleep?": {
     "bad": 1,
-    "shit": 1
+    "shit": 2
   },
   "#_what_was_good?_": {
     "coding": 1
