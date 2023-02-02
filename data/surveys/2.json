@@ -7,23 +7,23 @@
         {
           "type": "select",
           "options": {
-            "Haas": 13,
+            "Haas": 15,
             "Schneider": 2,
-            "Meier": 3
+            "Meier": 4
           }
         },
         {
           "type": "select",
           "options": {
             "Haas": 8,
-            "Schneider": 5
+            "Schneider": 8
           }
         },
         {
           "type": "select",
           "options": {
-            "Haas": 8,
-            "Schneider": 4
+            "Haas": 9,
+            "Schneider": 6
           }
         }
       ]
@@ -35,7 +35,7 @@
         {
           "type": "select",
           "options": {
-            "Haas": 15,
+            "Haas": 18,
             "Schneider": 3
           }
         }

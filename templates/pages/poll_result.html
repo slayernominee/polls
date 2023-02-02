@@ -59,11 +59,14 @@ you cant vote again !
             }
             e = document.getElementById("answer_{{question_index}}_{{option}}");
             if (e === null) {
-                document.getElementById('bar_{{question_index}}').innerHTML += '<div id="answer_{{question_index}}_{{option}}" class="result_bar_entry ' + gcolor + ' tooltip" style="width: ' + answer_percentage + '%"><span class="tooltiptext">{{option}}: {{element['options'][option]}} votes</span></div>'
+                document.getElementById('bar_{{question_index}}').innerHTML += '<div id="answer_{{question_index}}_{{option}}" class="result_bar_entry ' + gcolor + ' tooltip" style="width: ' + answer_percentage + '%"><span class="tooltiptext">{{option}}: <e id="tooltip_votes_{{question_index}}_{{option}}">{{element['options'][option]}}</e> votes</span></div>'
             } else {
                 new_width = parseInt(e.style.width.split('%')[0]);
                 new_width += answer_percentage;
                 e.style.width = new_width + '%';
+                count = parseInt(document.getElementById('tooltip_votes_{{question_index}}_{{option}}').innerHTML);
+                count += {{element['options'][option]}};
+                document.getElementById('tooltip_votes_{{question_index}}_{{option}}').innerHTML = count;
             }
             color += 1;
         </script>
