@@ -18,28 +18,34 @@ you cant vote again !
 <br>
 
 {# format the votes #}
-{% for question in votes %}
+{% for question in votes['questions'] %}
 <div>
-    <h2 style="text-align: center">{{question.replace('_', ' ')[2:]}}</h2>
-    Total: <e id="total_{{question}}">0</e> Votes
+    {% set question_index = votes['questions'].index(question) %}
+    <h2 style="text-align: center">{{question['name']}}</h2>
+    Total: <e id="total_{{question_index}}">0</e> Votes
+    <br><br>
 
-    <div id="bar_{{question}}" class="result_bar">
+    <div id="bar_{{question_index}}" class="result_bar">
     </div>
 
-    {% for answer in votes[question] %}
-        <script>
-            
-            current = parseInt(document.getElementById('total_{{question.replace(' ', '_')}}').innerHTML);
-            current += {{votes[question][answer]}};
-            document.getElementById('total_{{question.replace(' ', '_')}}').innerHTML = current;
-        </script>
-    {% endfor %}
     <script>
         color = Math.floor(Math.random() * 10);
     </script>
-    {% for answer in votes[question] %}
+
+    {% for element in question['elements'] %}
+        {% for option in element['options'] %}
+            <script>
+                current = parseInt(document.getElementById('total_{{question_index}}').innerHTML);
+                current += {{element['options'][option]}};
+                document.getElementById('total_{{question_index}}').innerHTML = current;
+            </script>
+        {% endfor %}
+    {% endfor %}
+    
+    {% for element in question['elements'] %}
+        {% for option in element['options'] %}
         <script>
-            answer_percentage = {{votes[question][answer]}} / current * 100;
+            answer_percentage = {{element['options'][option]}} / current * 100;
             if (color % 5  === 0) {
                 gcolor = "green";
             } else if (color % 5 === 1) {
@@ -51,10 +57,19 @@ you cant vote again !
             } else {
                 gcolor = "red";
             }
-            document.getElementById('bar_{{question}}').innerHTML += '<div id="answer_xx" class="result_bar_entry ' + gcolor + ' tooltip" style="width: ' + answer_percentage + '%"><span class="tooltiptext">{{answer}}: {{votes[question][answer]}} votes</span></div>'
+            e = document.getElementById("answer_{{question_index}}_{{option}}");
+            if (e === null) {
+                document.getElementById('bar_{{question_index}}').innerHTML += '<div id="answer_{{question_index}}_{{option}}" class="result_bar_entry ' + gcolor + ' tooltip" style="width: ' + answer_percentage + '%"><span class="tooltiptext">{{option}}: {{element['options'][option]}} votes</span></div>'
+            } else {
+                new_width = parseInt(e.style.width.split('%')[0]);
+                new_width += answer_percentage;
+                e.style.width = new_width + '%';
+            }
             color += 1;
         </script>
-    {% endfor %}
+        {% endfor%}
+    {% endfor%}
+
 
     <br>
 </div>

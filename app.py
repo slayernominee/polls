@@ -56,10 +56,7 @@ def admin_login():
 def poll_post(link):
     poll = polls.get_by_link(link)
     
-    if not path.isfile(f'data/votes/{poll.id}.json'):
-        with open(f'data/votes/{poll.id}.json', 'w') as f:
-            f.write('{}')
-    with open(f'data/votes/{poll.id}.json', 'r') as f:
+    with open(f'data/surveys/{poll.id}.json', 'r') as f:
         votes = jload(f)
 
     protection = poll.protection
@@ -92,38 +89,25 @@ def poll_post(link):
     - block if user agent found in db
     """
 
+
     form = request.form
     for key in form:
-        value = form[key]
-        if key.startswith('text_'):
-            question = key.split('text_')[1]
-            if value == '':
-                continue
-        elif key.startswith('radio_'):
-            question = key.split('radio_')[1]
-        elif key == 'id':
-            continue
-        elif key.startswith('select_'):
-            question = key.split('select_')[1]
-        else:
-            return 'an error occured by an not known value type ... sry please report this and what you have done'
-            break
-        if question not in votes:
-            votes[question] = {}
-        
-        if value not in votes[question]:
-            votes[question][value] = 0
-        votes[question][value] += 1
-    
-    with open(f'data/votes/{poll.id}.json', 'w') as f:
+        if key.startswith('ans_'):
+            question_id = int(key.split('_')[1])
+            element_id = int(key.split('_')[2])
+            option = form[key]
+            votes['questions'][question_id]['elements'][element_id]['options'][option] += 1
+
+    with open(f'data/surveys/{poll.id}.json', 'w') as f:
         jdump(votes, f, indent=2)
-    return render_template('pages/poll_result.html', wdata=wdata, votes=votes, title=poll.title, description=poll.description)
+
+    return redirect(f'/poll/result/{link}')
 
 @app.route('/poll/result/<link>')
 def poll_result(link):
     poll = polls.get_by_link(link)
 
-    with open(f'data/votes/{poll.id}.json', 'r') as f:
+    with open(f'data/surveys/{poll.id}.json', 'r') as f:
         votes = jload(f)
     
     return render_template('pages/poll_result.html', wdata=wdata, votes=votes, title=poll.title, description=poll.description)

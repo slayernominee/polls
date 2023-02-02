@@ -1,6 +1,12 @@
 # polls
 flask polls app with many options and optional blocking for multiple votes from one host
 
+# Warning:
+currently sheet support only in type2 surveys
+in qbq only json is supported
+working currently on making everything for the json file mode
+-> sheet mode wont work currently
+
 ## Images
 <img src=".github/assets/3.png">
 <img src=".github/assets/4.png">

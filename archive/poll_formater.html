@@ -1,0 +1,28 @@
+{# format the sheet file in a dialog #}
+<form method="POST" class="poll_form">
+    <input name="id" type="hidden" value="{{id}}">
+    {% for part in sheet.split('----') %}
+    {% set part_radio_id = 'radio_' + part.split('<br>')[1].replace(' ', '_') %}
+    {% set text_radio_id = 'text_' + part.split('<br>')[1].replace(' ', '_') %}
+    {% for line in part.split('<br>') %}
+    {% if line.startswith('#') %}
+    <h3>{{line}}</h3>
+    {% elif line.startswith('[r]') %}
+    <label class="container">{{line[4:]}}
+        <input type="radio" checked="checked" value="{{line[4:]}}" name="{{part_radio_id}}">
+        <span class="checkmark"></span>
+    </label>
+    {% elif line.startswith('[t]') %}
+    <label for="{{text_radio_id}}">{{line[4:]}}</label>
+    <input type="text" name="{{text_radio_id}}" id="{{text_radio_id}}" placeholder="{{line[4:]}}"><br>
+    {% elif line.startswith('!img') %}
+    <img src="{{line.split('!img ')[1]}}" alt="an image"><br>
+    {% else %}
+    {{line}}<br>
+    {% endif %}
+    {% endfor %}
+    
+    <hr>
+    {% endfor %}
+    <input type="submit">
+</form>

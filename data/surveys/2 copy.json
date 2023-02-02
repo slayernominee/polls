@@ -1,0 +1,58 @@
+{
+  "questions": [
+    {
+      "name": "Lieblingslehrer",
+      "description": "w\u00e4hlt euren Lieblingslehrer",
+      "elements": [
+        {
+          "type": "select",
+          "options": {
+            "Haas": 11,
+            "Schneider": 2,
+            "Meier": 1
+          }
+        },
+        {
+          "type": "select",
+          "options": {
+            "Haas": 6,
+            "Schneider": 3
+          }
+        },
+        {
+          "type": "select",
+          "options": {
+            "Haas": 6,
+            "Schneider": 2
+          }
+        }
+      ]
+    },
+    {
+      "name": "Lieblingslehrer 2",
+      "description": "w\u00e4hlt euren Lieblingslehrer",
+      "elements": [
+        {
+          "type": "select",
+          "options": {
+            "Haas": 12,
+            "Schneider": 2
+          }
+        }
+      ]
+    },
+    {
+      "name": "Radio Question",
+      "description": "tet",
+      "elements": [
+        {
+          "type": "radio",
+          "options": {
+            "first_option": 0,
+            "second_option": 2
+          }
+        }
+      ]
+    }
+  ]
+}
