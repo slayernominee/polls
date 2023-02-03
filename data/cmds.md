@@ -11,3 +11,6 @@ CREATE TABLE polls (id int, creator int, created int, cookie_prot int, user_agen
     // ip, cookie, useragent are to block multipe votes
     // password ""/null = none; str = this one (not hashed)
     // limited_runs: 0/null=unlimited, number = only this often this should be able to be made
+
+# votes.db
+CREATE TABLE votes (id int, poll int, ip text, operating_system text, browser text, version text, darkmode int, screen_width int, screen_height int, user_agent text);

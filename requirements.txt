@@ -2,3 +2,4 @@ flask
 pyotp
 uwsgi
 bcrypt
+ua-parser

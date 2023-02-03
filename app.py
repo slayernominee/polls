@@ -1,8 +1,10 @@
 from flask import Flask, redirect, abort, session, request, render_template
 from os import urandom, path
 from controler import polls, accounts
+import controler.votes
 from json import load as jload, dump as jdump
 import re
+from ua_parser import user_agent_parser
 
 """
 Errors
@@ -65,15 +67,12 @@ def admin_login():
 
 @app.route('/poll/<link>', methods=['POST'])
 def poll_post(link):
-
     if not is_allowed_specific_char(link):
         return abort(514)
 
     poll = polls.get_by_link(link)
-    
     with open(f'data/surveys/{poll.id}.json', 'r') as f:
         votes = jload(f)
-
     protection = poll.protection
     
     # cookie protection
@@ -106,7 +105,6 @@ def poll_post(link):
     - block if user agent found in db
     """
 
-
     form = request.form
     for key in form:
         if key.startswith('ans_'):
@@ -114,6 +112,11 @@ def poll_post(link):
             element_id = int(key.split('_')[2])
             option = form[key]
             votes['questions'][question_id]['elements'][element_id]['options'][option] += 1
+    
+    ua_string = request.user_agent.string
+    parsed_ua = user_agent_parser.Parse(ua_string)
+    version = parsed_ua['user_agent']['major'] + '.' + parsed_ua['user_agent']['minor'] + '.' + parsed_ua['user_agent']['patch'] # type: ignore
+    controler.votes.vote_done(poll.id, str(request.remote_addr), str(parsed_ua['os']['family']), str(parsed_ua['user_agent']['family']), version, -1, -1, -1, ua_string) # type: ignore
 
     with open(f'data/surveys/{poll.id}.json', 'w') as f:
         jdump(votes, f, indent=2)

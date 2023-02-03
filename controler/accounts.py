@@ -16,7 +16,7 @@ def jsonfy(item: tuple) -> dict:
         "created": item[5]
     }
 
-def list_accounts() -> list:
+def list_accounts() -> list[dict]:
     with sqlite3.connect(db) as conn:
         account_list = []
         c = conn.cursor()

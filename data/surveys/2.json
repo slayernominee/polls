@@ -8,22 +8,22 @@
           "type": "select",
           "text": "1. Stimme",
           "options": {
-            "Haas": 15,
+            "Haas": 21,
             "Schneider": 2,
-            "Meier": 5
+            "Meier": 6
           }
         },
         {
           "type": "select",
           "options": {
-            "Haas": 8,
-            "Schneider": 9
+            "Haas": 14,
+            "Schneider": 10
           }
         },
         {
           "type": "select",
           "options": {
-            "Haas": 9,
+            "Haas": 16,
             "Schneider": 7
           }
         }
@@ -36,7 +36,7 @@
         {
           "type": "select",
           "options": {
-            "Haas": 18,
+            "Haas": 25,
             "Schneider": 4
           }
         }

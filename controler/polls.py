@@ -56,7 +56,7 @@ def jsonfy(poll: Poll) -> dict:
         "used_runs": poll.used_runs
     }
 
-def get_by_id(id: int) -> Poll:
+def get_by_id(id: int) -> Poll: # type: ignore
     with sqlite3.connect(db) as conn:
         c = conn.cursor()
         c.execute('SELECT * FROM polls WHERE id=?', (id, ))
@@ -66,7 +66,7 @@ def get_by_id(id: int) -> Poll:
         poll = beautify(poll_tuple)
         return poll
 
-def get_by_link(link: str) -> Poll:
+def get_by_link(link: str) -> Poll: # type: ignore
     with sqlite3.connect(db) as conn:
         c = conn.cursor()
         c.execute('SELECT * FROM polls WHERE link=?', (link, ))
@@ -76,7 +76,7 @@ def get_by_link(link: str) -> Poll:
         poll = beautify(poll_tuple)
         return poll
 
-def list_polls() -> list:
+def list_polls() -> list[dict]:
     with sqlite3.connect(db) as conn:
         c = conn.cursor()
         c.execute('SELECT * FROM polls')
@@ -88,8 +88,11 @@ def list_polls() -> list:
         poll_list.append(poll)
     return poll_list
 
-def create_poll(id: int, creator: int, created: int, cookie_prot: bool, user_agent_prot: bool, ip_prot: bool, typ: int, sheet: str, link: str, title: str, description: str = '') -> Poll:
+def create_poll(id: int, creator: int, created: int, cookie_prot: bool, user_agent_prot: bool, ip_prot: bool, typ: int, sheet: str, link: str, title: str, description: str = '', password: str = '', result_hidden: bool = False, limited_runs: int = 0) -> Poll:
     with sqlite3.connect(db) as conn:
         c = conn.cursor()
-        c.execute('INSERT INTO polls VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);', (id, creator, created, cookie_prot, user_agent_prot, ip_prot, typ, sheet, link, title, description))
+        c.execute('INSERT INTO polls VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);', (id, creator, created, cookie_prot, user_agent_prot, ip_prot, typ, sheet, link, title, description, password, result_hidden, limited_runs, 0, True))
         conn.commit()
+    
+    poll = Poll(id, creator, created, cookie_prot, user_agent_prot, ip_prot, typ, sheet, link, title, description, password, result_hidden, limited_runs, 0, True)
+    return poll
