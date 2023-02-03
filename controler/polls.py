@@ -1,10 +1,11 @@
 import sqlite3
 import json
+from os.path import isfile
 
 db = 'data/polls.db'
 
 class Poll():
-    def __init__(self, id: int, creator: int, created: int, cookie_prot: bool, user_agent_prot: bool, ip_prot: bool, typ: int, sheet: str, link: str, title: str, description: str = '', password: str = "", result_hidden: bool = False, limited_runs: int = 0, used_runs: int = 0) -> None:
+    def __init__(self, id: int, creator: int, created: int, cookie_prot: bool, user_agent_prot: bool, ip_prot: bool, typ: int, sheet: str, link: str, title: str, description: str = '', password: str = "", result_hidden: bool = False, limited_runs: int = 0, used_runs: int = 0, fetch: bool = True) -> None:
         self.id = id
         self.creator = creator
         self.created = created
@@ -23,16 +24,20 @@ class Poll():
         self.limited_runs = limited_runs
         self.used_runs = used_runs
 
-
-        with open(f'data/surveys/{id}.json', 'r') as f:
-            self.sheet = json.load(f)
-            self.json = True
+        if fetch:
+            if isfile(f'data/surveys/{id}.json'):
+                with open(f'data/surveys/{id}.json', 'r') as f:
+                    self.sheet = json.load(f)
+            else:
+                self.sheet = {}
+        else:
+            self.sheet = None
     
     def __str__(self) -> str:
         return f'<poll object {self.id}>'
 
-def beautify(poll_tuple: tuple) -> Poll:
-    return Poll(poll_tuple[0], poll_tuple[1], poll_tuple[2], poll_tuple[3], poll_tuple[4], poll_tuple[5], poll_tuple[6], poll_tuple[7], poll_tuple[8], poll_tuple[9], poll_tuple[10], poll_tuple[11], poll_tuple[12], poll_tuple[13], poll_tuple[14])   
+def beautify(poll_tuple: tuple, fetch: bool = True) -> Poll:
+    return Poll(poll_tuple[0], poll_tuple[1], poll_tuple[2], poll_tuple[3], poll_tuple[4], poll_tuple[5], poll_tuple[6], poll_tuple[7], poll_tuple[8], poll_tuple[9], poll_tuple[10], poll_tuple[11], poll_tuple[12], poll_tuple[13], poll_tuple[14], fetch)   
 
 def jsonfy(poll: Poll) -> dict:
     return {
@@ -78,7 +83,7 @@ def list_polls() -> list:
         poll_tuples = c.fetchall()
     poll_list = []
     for t in poll_tuples:
-        poll = beautify(t)
+        poll = beautify(t, False)
         poll = jsonfy(poll)
         poll_list.append(poll)
     return poll_list
