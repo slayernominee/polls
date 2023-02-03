@@ -2,7 +2,6 @@ from flask import Flask, redirect, abort, session, request, render_template
 from os import urandom, path
 from controler import polls, accounts
 from json import load as jload, dump as jdump
-from hashlib import sha3_512
 import re
 
 """
