@@ -3,6 +3,13 @@ from os import urandom, path
 from controler import polls, accounts
 from json import load as jload, dump as jdump
 from hashlib import sha3_512
+import re
+
+"""
+Errors
+
+514 invalid link not secured
+"""
 
 app = Flask(__name__)
 app.secret_key = str(urandom(4096))
@@ -11,6 +18,12 @@ wdata = {
     "footer": False,
     "rainbow_bg": False
 }
+
+def is_allowed_specific_char(string):
+    """string should only contain numbers and ascii letters"""
+    charRe = re.compile(r'[^a-zA-Z0-9]')
+    string = charRe.search(string)
+    return not bool(string)
 
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/home', methods=['GET', 'POST'])
@@ -54,6 +67,10 @@ def admin_login():
 
 @app.route('/poll/<link>', methods=['POST'])
 def poll_post(link):
+
+    if not is_allowed_specific_char(link):
+        return abort(514)
+
     poll = polls.get_by_link(link)
     
     with open(f'data/surveys/{poll.id}.json', 'r') as f:
@@ -107,7 +124,15 @@ def poll_post(link):
 
 @app.route('/poll/result/<link>')
 def poll_result(link):
+
+    if not is_allowed_specific_char(link):
+        return abort(514)
+
     poll = polls.get_by_link(link)
+
+    if poll == None:
+        return 'no poll found ...'
+
     if poll.result_hidden and not ('permissions' in session and 'admin' in session['permissions'] and session['permissions']['admin']):
         return render_template('pages/poll_result_disabled.html', wdata=wdata, title=poll.title)
 
