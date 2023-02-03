@@ -1,11 +1,17 @@
 import sqlite3
+import bcrypt
 
 db = 'data/accounts.db'
 
 # TODO: load all values in the response and load the matching permissions 
 # TODO: create a new user with zero permissions 
 
-def check(username: str, password_hash: str) -> dict:
+def check(username: str, password: str) -> dict:
+    b_password = password.encode('utf-8')
+    salt = b'$2b$12$joWb2D.n3oRReP.s0fRxuO'
+    b_password_hash = bcrypt.hashpw(b_password, salt)
+    password_hash = b_password_hash.decode('utf-8')
+
     with sqlite3.connect(db) as conn:
         c = conn.cursor()
         c.execute('SELECT * FROM accounts WHERE username=? AND password_hash=?', (username, password_hash))

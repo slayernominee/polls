@@ -49,12 +49,10 @@ def admin():
 @app.route('/login', methods=['POST'])
 def admin_login():    
     form = request.form
-    username = form['username']
-    password = form['password']
+    username = str(form['username'])
+    password = str(form['password'])
 
-    password_hash = sha3_512(password.encode('utf-8')).hexdigest()
-
-    rs = accounts.check(username, password_hash)
+    rs = accounts.check(username, password) # will be hashed with bcrypt and then checked
 
     if rs['valid']:
         if 'permissions' not in session:
