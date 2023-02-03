@@ -41,7 +41,8 @@ def poll(link):
 def admin():
     if 'permissions' in session and 'admin' in session['permissions'] and session['permissions']['admin']:
         poll_list = polls.list_polls()
-        return render_template('pages/admin.html', wdata=wdata, poll_list=poll_list)
+        account_list = accounts.list_accounts()
+        return render_template('pages/admin.html', wdata=wdata, poll_list=poll_list, account_list=account_list)
     else:
         return render_template('pages/login.html', wdata=wdata)
 

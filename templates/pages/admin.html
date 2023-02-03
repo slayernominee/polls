@@ -36,18 +36,17 @@
             <td>Mail</td>
             <td>Created</td>
             <td>Admin</td>
-            <td>Profile</td>
         </tr>
-
+        {% for account in account_list %}
         <tr>
+            <td>{{account['id']}}</td>
+            <td>{{account['username']}}</td>
+            <td>no names supported ...</td>
+            <td>{{account['mail']}}</td>
+            <td>{{account['created']}}</td>
             <td>todo</td>
-            <td>todo</td>
-            <td>todo</td>
-            <td>todo</td>
-            <td>todo</td>
-            <td>todo</td>
-            <td><a>todo</a></td>
         </tr>
+        {% endfor %}
 
     </table>
 </body>

@@ -6,6 +6,28 @@ db = 'data/accounts.db'
 # TODO: load all values in the response and load the matching permissions 
 # TODO: create a new user with zero permissions 
 
+def jsonfy(item: tuple) -> dict:
+    return {
+        "id": item[0],
+        "username": item[1],
+        "mail": item[2],
+
+        "totp": item[4],
+        "created": item[5]
+    }
+
+def list_accounts() -> list:
+    with sqlite3.connect(db) as conn:
+        account_list = []
+        c = conn.cursor()
+        c.execute('SELECT * FROM accounts')
+        items = c.fetchall()
+        for item in items:
+            acc = jsonfy(item)
+            account_list.append(acc)
+    
+    return account_list
+
 def check(username: str, password: str) -> dict:
     b_password = password.encode('utf-8')
     salt = b'$2b$12$joWb2D.n3oRReP.s0fRxuO'
