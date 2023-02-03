@@ -109,11 +109,11 @@ def poll_post(link):
 def poll_result(link):
     poll = polls.get_by_link(link)
     if poll.result_hidden and not ('permissions' in session and 'admin' in session['permissions'] and session['permissions']['admin']):
-        return 'disabled to see the results currently but thx for voting'
+        return render_template('pages/poll_result_disabled.html', wdata=wdata, title=poll.title)
 
     with open(f'data/surveys/{poll.id}.json', 'r') as f:
         votes = jload(f)
-    
+
     return render_template('pages/poll_result.html', wdata=wdata, votes=votes, title=poll.title, description=poll.description)
 
 if __name__ == '__main__': 
