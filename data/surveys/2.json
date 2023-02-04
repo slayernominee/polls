@@ -6,7 +6,10 @@
       "elements": [
         {
           "type": "select",
+          "_text": "this is some text that stands before the checkbox",
           "text": "1. Stimme",
+          "_placeholder": "if placeholder text, the field is not requried and will be ignored if left to the default settings",
+          "placeholder": "Lehrer",
           "options": {
             "Haas": 21,
             "Schneider": 2,
@@ -15,15 +18,16 @@
         },
         {
           "type": "select",
+          "text": "2. Stimme",
           "options": {
-            "Haas": 14,
+            "Haas": 17,
             "Schneider": 10
           }
         },
         {
           "type": "select",
           "options": {
-            "Haas": 16,
+            "Haas": 19,
             "Schneider": 7
           }
         }
@@ -36,7 +40,7 @@
         {
           "type": "select",
           "options": {
-            "Haas": 25,
+            "Haas": 28,
             "Schneider": 4
           }
         }

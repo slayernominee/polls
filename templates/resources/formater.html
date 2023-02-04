@@ -1,50 +1,53 @@
 {# format the sheet file in a dialog #}
 
 <form method="POST" class="poll_form" id="poll_form">
-    <input name="id" type="hidden" value="{{id}}">
-    {% for question in sheet['questions'] %}
-        {% set question_index = sheet['questions'].index(question) %}
-       <div id="page_{{question_index}}" class="page">
-            <script>
-                page_max_index = {{question_index}};
-            </script>
+  <input name="id" type="hidden" value="{{id}}" />
+  {% for question in sheet['questions'] %} {% set question_index =
+  sheet['questions'].index(question) %}
+  <div id="page_{{question_index}}" class="page">
+    <script>
+      page_max_index = {{question_index}};
+    </script>
 
-            {% set question_dict = sheet['questions'][question_index] %}
+    {% set question_dict = sheet['questions'][question_index] %}
 
-            <div class="question">
-                <h2>{{question_dict['name']}}</h2>
-                <description>{{question_dict['description']}}</description>
-            </div> 
-            <hr>
-            <div class="answer">
-                {% for element in question_dict['elements'] %}
-                    {% set element_dict = question_dict['elements'][question_dict['elements'].index(element)] %}
-                    {% if element_dict['type'] == 'select' %}
-                        <select name="ans_{{question_index}}_{{question_dict['elements'].index(element)}}">
-                            {% for option in element_dict['options'] %}
-                            <option value="{{option}}">{{option}}</option>
-                            {% endfor %}
-                        </select>
-                    {% elif element_dict['type'] == 'radio' %}
-                        {% for option in element_dict['options'] %}
-                            <label class="container">{{option}}
-                                <input type="radio" value="{{option}}" name="ans_{{question_index}}_{{question_dict['elements'].index(element)}}">
-                                <span class="checkmark"></span>
-                            </label>
-                        {% endfor %}
-                    {% else %}
-                        unknwon type ...
-                        ans_{{question_index}}_{{question_dict['elements'].index(element)}}
-                        {{element_dict}}
-                    {% endif %}
-                {% endfor %}
-            </div>
+    <div class="question">
+      <h2>{{question_dict['name']}}</h2>
+      <description>{{question_dict['description']}}</description>
+    </div>
+    <hr />
+    <div class="answer">
+      {% for element in question_dict['elements'] %} {% set element_dict =
+      question_dict['elements'][question_dict['elements'].index(element)] %} {%
+      if 'text' in element_dict %} {{element_dict['text']}} {% endif %} {% if
+      element_dict['type'] == 'select' %}
+      <select
+        name="ans_{{question_index}}_{{question_dict['elements'].index(element)}}"
+      >
+        {% if 'placeholder' in element_dict %}
+        <option value="" disabled selected>{{element_dict['placeholder']}}</option>
+        {% endif %} {% for option in element_dict['options'] %}
+        <option value="{{option}}">{{option}}</option>
+        {% endfor %}
+      </select>
+      {% elif element_dict['type'] == 'radio' %} {% for option in
+      element_dict['options'] %}
+      <label class="container"
+        >{{option}}
+        <input
+          type="radio"
+          value="{{option}}"
+          name="ans_{{question_index}}_{{question_dict['elements'].index(element)}}"
+        />
+        <span class="checkmark"></span>
+      </label>
+      {% endfor %} {% else %} unknwon type ...
+      ans_{{question_index}}_{{question_dict['elements'].index(element)}}
+      {{element_dict}} {% endif %} {% endfor %}
+    </div>
+  </div>
 
-        </div>
-
-    {% endfor %}    
-
-    {% if sheet_mode %}
-    <input type="submit">  
-    {% endif %}
+  {% endfor %} {% if sheet_mode %}
+  <input type="submit" />
+  {% endif %}
 </form>
