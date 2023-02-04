@@ -1,0 +1,63 @@
+{
+  "questions": [
+    {
+      "name": "Lieblingslehrer",
+      "description": "w\u00e4hlt euren Lieblingslehrer",
+      "elements": [
+        {
+          "type": "select",
+          "_text": "this is some text that stands before the checkbox",
+          "text": "1. Stimme",
+          "_placeholder": "if placeholder text, the field is not requried and will be ignored if left to the default settings",
+          "placeholder": "Lehrer",
+          "options": {
+            "Haas": 21,
+            "Schneider": 2,
+            "Meier": 6
+          }
+        },
+        {
+          "type": "select",
+          "text": "2. Stimme",
+          "options": {
+            "Haas": 17,
+            "Schneider": 10
+          }
+        },
+        {
+          "type": "select",
+          "options": {
+            "Haas": 19,
+            "Schneider": 7
+          }
+        }
+      ]
+    },
+    {
+      "name": "Lieblingslehrer 2",
+      "description": "w\u00e4hlt euren Lieblingslehrer",
+      "elements": [
+        {
+          "type": "select",
+          "options": {
+            "Haas": 28,
+            "Schneider": 4
+          }
+        }
+      ]
+    },
+    {
+      "name": "Radio Question",
+      "description": "tet",
+      "elements": [
+        {
+          "type": "radio",
+          "options": {
+            "first_option": 3,
+            "second_option": 3
+          }
+        }
+      ]
+    }
+  ]
+}
