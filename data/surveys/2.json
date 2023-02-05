@@ -20,14 +20,14 @@
           "type": "select",
           "text": "2. Stimme",
           "options": {
-            "Haas": 17,
+            "Haas": 23,
             "Schneider": 10
           }
         },
         {
           "type": "select",
           "options": {
-            "Haas": 19,
+            "Haas": 25,
             "Schneider": 7
           }
         }
@@ -40,7 +40,7 @@
         {
           "type": "select",
           "options": {
-            "Haas": 28,
+            "Haas": 34,
             "Schneider": 4
           }
         }

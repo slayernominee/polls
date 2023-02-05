@@ -90,19 +90,32 @@ def poll_post(link):
         # write the cookie after vote
         session['votes'][str(link)] = False
 
-    """
-    TODO:
-    ip protection
-    user agent protection
+    # read the user agent 
+    ua_string = request.user_agent.string
+    parsed_ua = user_agent_parser.Parse(ua_string)
+    
+    # safari fix
+    if parsed_ua['user_agent']['patch'] == None:  # type: ignore
+        parsed_ua['user_agent']['patch'] = "0"    # type: ignore
+    
+    version = parsed_ua['user_agent']['major'] + '.' + parsed_ua['user_agent']['minor'] + '.' + parsed_ua['user_agent']['patch'] # type: ignore
 
-    - check if user agent votes are protected
+    # it will use the user_agent only if found with the ip
+    if bool(protection['user_agent']):
+        is_allowed = controler.votes.user_agent_allowed(poll.id, request.remote_addr, str(parsed_ua['os']['family']), str(parsed_ua['user_agent']['family']), version, -1, -1, -1, ua_string, only_by_ip_match=True) # type: ignore
+        if not is_allowed:
+            if poll.result_hidden and not ('permissions' in session and 'admin' in session['permissions'] and session['permissions']['admin']):
+                return 'disabled to see the results currently, but you cant vote again because double voting is disabled'
+            return render_template('pages/poll_result.html', votes=votes, wdata=wdata, already_voted=True, title=poll.title, description=poll.description)
+
+
+    """
+    TODO: ip protection
+
     - check if ip votes are protected
 
-    - write ip in db for this link
-    - block ip if found in the db
+    - block ip if ip found in the db
 
-    - write user agent in the db
-    - block if user agent found in db
     """
 
     form = request.form
@@ -113,9 +126,6 @@ def poll_post(link):
             option = form[key]
             votes['questions'][question_id]['elements'][element_id]['options'][option] += 1
     
-    ua_string = request.user_agent.string
-    parsed_ua = user_agent_parser.Parse(ua_string)
-    version = parsed_ua['user_agent']['major'] + '.' + parsed_ua['user_agent']['minor'] + '.' + parsed_ua['user_agent']['patch'] # type: ignore
     controler.votes.vote_done(poll.id, str(request.remote_addr), str(parsed_ua['os']['family']), str(parsed_ua['user_agent']['family']), version, -1, -1, -1, ua_string) # type: ignore
 
     with open(f'data/surveys/{poll.id}.json', 'w') as f:
