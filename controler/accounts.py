@@ -1,10 +1,8 @@
 import sqlite3
 import bcrypt
+import time
 
 db = 'data/accounts.db'
-
-# TODO: load all values in the response and load the matching permissions 
-# TODO: create a new user with zero permissions 
 
 def jsonfy(item: tuple) -> dict:
     return {
@@ -68,3 +66,10 @@ def check(username: str, password: str) -> dict:
         "id": item[0],
         "permissions": permissions
     }
+
+# todo: create a new user
+# + id generator
+# + check if username & mail are free
+# + give the user account an zero perm entry in the permissions db
+def create(username: str, mail: str, password_hash: str, totp: str = '', created: float = time.time()):
+    pass
