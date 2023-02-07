@@ -108,15 +108,14 @@ def poll_post(link):
                 return 'disabled to see the results currently, but you cant vote again because double voting is disabled'
             return render_template('pages/poll_result.html', votes=votes, wdata=wdata, already_voted=True, title=poll.title, description=poll.description)
 
+    # will block the vote if the ip block is enabled and the ip has already voted for this pool
+    if bool(protection['ip']):
+        is_allowed = controler.votes.is_ip_allowed(poll.id, request.remote_addr) # type: ignore
+        if not is_allowed:
+            if poll.result_hidden and not ('permissions' in session and 'admin' in session['permissions'] and session['permissions']['admin']):
+                return 'disabled to see the results currently, but you cant vote again because double voting is disabled'
+            return render_template('pages/poll_result.html', votes=votes, wdata=wdata, already_voted=True, title=poll.title, description=poll.description)
 
-    """
-    TODO: ip protection
-
-    - check if ip votes are protected
-
-    - block ip if ip found in the db
-
-    """
 
     form = request.form
     for key in form:
