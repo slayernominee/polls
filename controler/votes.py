@@ -39,8 +39,25 @@ def user_agent_allowed(poll: int, ip: str, operating_system: str, browser: str, 
             c.execute('SELECT * FROM votes WHERE poll=? AND operating_system=? AND browser=? AND version=? AND darkmode=? AND screen_width=? AND screen_height=? AND user_agent=? AND ip=?', (poll, operating_system, browser, version, darkmode, screen_width, screen_height, user_agent, ip)) # type: ignore
         else:
             c.execute('SELECT * FROM votes WHERE poll=? AND operating_system=? AND browser=? AND version=? AND darkmode=? AND screen_width=? AND screen_height=? AND user_agent=?', (poll, operating_system, browser, version, darkmode, screen_width, screen_height, user_agent)) # type: ignore
-        items = c.fetchall()
+        items = c.fetchmany(2)
     if items == []:
         return True
-    else:
-        return False
+    return False
+
+def is_ip_allowed(poll: int, ip: str) -> bool:
+    """check if ip should be able to vote
+
+    Args:
+        poll (int): the id of the poll
+        ip (str): the ip address 
+
+    Returns:
+        bool: is allowed to vote
+    """
+    with sqlite3.connect(db) as conn:
+        c = conn.cursor()
+        c.execute('SELECT * FROM votes WHERE poll=? AND ip=?', (poll, ip))
+        items = c.fetchmany(2)
+    if items == []:
+        return True
+    return False
