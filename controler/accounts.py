@@ -27,10 +27,7 @@ def list_accounts() -> list[dict]:
     return account_list
 
 def check(username: str, password: str) -> dict:
-    b_password = password.encode('utf-8')
-    salt = b'$2b$12$joWb2D.n3oRReP.s0fRxuO'
-    b_password_hash = bcrypt.hashpw(b_password, salt)
-    password_hash = b_password_hash.decode('utf-8')
+    password_hash = get_hash(password)
 
     with sqlite3.connect(db) as conn:
         c = conn.cursor()
@@ -66,6 +63,13 @@ def check(username: str, password: str) -> dict:
         "id": item[0],
         "permissions": permissions
     }
+
+def get_hash(password: str) -> str:
+    b_password = password.encode('utf-8')
+    salt = b'$2b$12$joWb2D.n3oRReP.s0fRxuO'
+    b_password_hash = bcrypt.hashpw(b_password, salt)
+    password_hash = b_password_hash.decode('utf-8')
+    return password_hash
 
 # todo: create a new user
 # + id generator
