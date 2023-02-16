@@ -7,4 +7,4 @@ MarkupSafe==2.1.2
 pyotp==2.8.0
 ua-parser==0.16.1
 uWSGI==2.0.21
-Werkzeug==2.2.2
+Werkzeug==2.2.3
