@@ -13,21 +13,29 @@
           "options": {
             "Haas": 21,
             "Schneider": 2,
-            "Meier": 6
+            "Meier": 6,
+            "Haa2s": 21,
+            "Schn2eider": 2,
+            "Meie2r": 6,
+            "test": 2,
+            "123": 3,
+            "2": 4,
+            "3": 10,
+            "4": 4
           }
         },
         {
           "type": "select",
           "text": "2. Stimme",
           "options": {
-            "Haas": 23,
+            "Haas": 24,
             "Schneider": 10
           }
         },
         {
           "type": "select",
           "options": {
-            "Haas": 25,
+            "Haas": 26,
             "Schneider": 7
           }
         }
@@ -40,7 +48,7 @@
         {
           "type": "select",
           "options": {
-            "Haas": 34,
+            "Haas": 35,
             "Schneider": 4
           }
         }

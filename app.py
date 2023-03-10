@@ -17,7 +17,8 @@ app.secret_key = str(urandom(4096))
 
 wdata = {
     "footer": False,
-    "rainbow_bg": False
+    "rainbow_bg": False,
+    "over_10_percent_names": True # if this is enabled in the result page votes for a item with more then 10% will be written without hovering over it
 }
 
 def is_allowed_specific_char(string):

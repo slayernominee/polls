@@ -65,9 +65,23 @@ you cant vote again !
                 new_width += answer_percentage;
                 e.style.width = new_width + '%';
                 count = parseInt(document.getElementById('tooltip_votes_{{question_index}}_{{option}}').innerHTML);
-                count += {{element['options'][option]}};
+                count += {{element['options'][option]}}; 
                 document.getElementById('tooltip_votes_{{question_index}}_{{option}}').innerHTML = count;
             }
+
+
+            {% if wdata['over_10_percent_names'] %}
+            // write the name in the place if its more than 10%
+            if (answer_percentage >= 10) {
+                bar = document.getElementById("answer_{{question_index}}_{{option}}");
+                text = '<e style="display: flex; justify-content: center; padding-top: 5px;">{{option}}</e>';
+                
+                if (! String(bar.innerHTML).includes(text)) {
+                    bar.innerHTML += text;
+                }
+            }
+            {% endif %}
+
             color += 1;
         </script>
         {% endfor%}
